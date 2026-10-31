@@ -1,0 +1,13 @@
+// OCEANHUB moved to https://ocean-hub-vessel-managem-cdca8.web.app
+// This replaces the old app's service worker: it clears the old offline copy
+// and removes itself, so installed copies stop opening the old version.
+self.addEventListener('install', () => self.skipWaiting());
+self.addEventListener('activate', event => {
+  event.waitUntil((async () => {
+    const keys = await caches.keys();
+    await Promise.all(keys.map(k => caches.delete(k)));
+    await self.registration.unregister();
+    const clients = await self.clients.matchAll({ type: 'window' });
+    clients.forEach(c => c.navigate(c.url));
+  })());
+});

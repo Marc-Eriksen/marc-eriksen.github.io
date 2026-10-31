@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>OCEANHUB has moved</title>
+<style>
+  body { margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+         font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: #f4f7f8; color: #12343b; padding: 16px; box-sizing: border-box; }
+  main { max-width: 420px; text-align: center; }
+  h1 { font-size: 20px; margin: 0 0 8px; }
+  p { margin: 0 0 16px; line-height: 1.5; }
+  a { color: #0b6e75; font-weight: 600; word-break: break-all; }
+</style>
+<script>
+  // Old GitHub Pages links (and apps installed from them) land here.
+  // Forward everything under /Fleet-Vessel-management/ to the same page on the new site.
+  (function () {
+    var NEW_SITE = 'https://ocean-hub-vessel-managem-cdca8.web.app';
+    var OLD_PREFIX = '/Fleet-Vessel-management';
+    var path = location.pathname;
+    if (path.indexOf(OLD_PREFIX) !== 0) return; // not an OCEANHUB link: show the page as is
+    var rest = path.slice(OLD_PREFIX.length) || '/';
+    var target = NEW_SITE + rest + location.search + location.hash;
+    document.documentElement.setAttribute('data-target', target);
+
+    // Remove the old app's offline copy so it can't keep opening the old version.
+    try {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function (regs) {
+          regs.forEach(function (r) { r.unregister(); });
+        }).catch(function () {});
+      }
+      if (window.caches) {
+        caches.keys().then(function (keys) { keys.forEach(function (k) { caches.delete(k); }); }).catch(function () {});
+      }
+    } catch (e) {}
+
+    location.replace(target);
+  })();
+</script>
+</head>
+<body>
+<main>
+  <h1>OCEANHUB has moved</h1>
+  <p>The Vessel Manager now lives at a new address. If you aren't taken there automatically, use this link:</p>
+  <p><a id="go" href="https://ocean-hub-vessel-managem-cdca8.web.app/">ocean-hub-vessel-managem-cdca8.web.app</a></p>
+  <p>If you installed the app on this device, remove it and install it again from the new address.</p>
+</main>
+<script>
+  var t = document.documentElement.getAttribute('data-target');
+  if (t) document.getElementById('go').href = t;
+</script>
+</body>
+</html>
